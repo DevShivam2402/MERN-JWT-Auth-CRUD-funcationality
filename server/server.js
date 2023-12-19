@@ -1,4 +1,5 @@
 import userRoutes from './routes/userRoutes.js';
+import chatRoutes from './routes/chatRoutes.js';
 import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -20,7 +21,8 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(cookieParser());
 
-app.use('/api/users', userRoutes)
+app.use('/api/users', userRoutes);
+app.use('/api/user/chat', chatRoutes);
 
 app.get('/', (req, res) => res.send('server is ready'));
 

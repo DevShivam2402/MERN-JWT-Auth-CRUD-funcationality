@@ -123,4 +123,30 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
 
 
-export {authUser, registerUser, logoutUser, getUserProfile, updateUserProfile};
+
+//@desc  Delete user
+//route DELETE /api/users/delete
+//@access Private
+const deleteUser = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id);
+
+    if (user) {
+        await user.deleteOne();
+        res.clearCookie('jwt'); // Assuming you want to clear the JWT cookie upon user deletion
+        res.status(200).json({ message: 'User removed' });
+    } else {
+        res.status(404);
+        throw new Error('User not found');
+    }
+});
+
+
+
+export {
+  authUser,
+  registerUser,
+  logoutUser,
+  getUserProfile,
+  updateUserProfile,
+  deleteUser,
+};
